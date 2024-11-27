@@ -1,0 +1,4 @@
+10.119.71.16 ansible_become=true
+
+[webservers]
+10.119.71.16
