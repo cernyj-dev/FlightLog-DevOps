@@ -1,0 +1,34 @@
+---
+- name: Docker setup
+  hosts: webservers
+  tasks:
+    - name: Install docker
+      apk:
+        name: docker
+        state: present
+    - name: Install docker py
+      apk:
+        name: docker-py
+        state: present
+    - name: Start docker
+      service:
+        name: docker
+        state: started
+        enabled: true
+    - name: Login to docker
+      community.docker.docker_login:
+        registry_url: gitlab.fit.cvut.cz:5050
+        username: <...>
+        password: <...>
+    - name: Pull docker image
+      community.docker.docker_image:
+        name: "gitlab.fit.cvut.cz:5050/cernyj90/<...>"
+        tag: "recap"
+        source: pull
+    - name: Start docker container
+      community.docker.docker_container:
+        name: flightlog
+        image: gitlab.fit.cvut.cz:5050/cernyj90/<...>:recap
+        recreate: true
+        ports:
+          - "8081:8081"
