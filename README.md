@@ -1,8 +1,43 @@
-# Informace o projektu #
-Tento repozitář sloužil k osvojení si DevOps postupů. Nejdříve byl napsán __Dockerfile__ pomocí něhož se vytvořil Docker image.
+# DevOps Automation with GitLab CI/CD, Docker, Ansible, and OpenStack
 
-V __.gitlab-ci.yml__ jsem vypracoval skript, který vybudoval projekt pomocí _maven_ a identifikoval artefakty (binárky), které byly pak důležité k sestavení kontejneru, který byl pak uložen do Gitlab container registry. 
+> ⚙️ **A hands-on DevOps project demonstrating CI/CD pipelines, containerization, and infrastructure automation in a cloud environment.**
 
-Pracovali jsme také s virtuálkami běžícími na školním cloudu. K manipulaci s nimi jsme používali __Openstack__. Byla vytvořena jedna řídící virtuálka, na které jsem vytvořil __webservers__ soubor, který vlastnil IP adresy dalších dvou řízených virtuálek. Poté byl vytvořen __Playbook__ soubor, jehož ukázka je i v tomto repozitáři. Tento playbook připravil ostatní dvě virtuálky a stáhl na ně právě tuto aplikaci z docker registry. Po předání SSH klíče řídící virtuálky do _authorized_keys_ druhé virtuálky – čímž ta řídící virtuálka získala přístup – už bylo možné zavolat "ansible-playbook -i hosts webserver.yml".
+---
 
-Tímto se na řízených virtuálkách spustil Docker kontejner s touto aplikací a zadáním IP adresy řízené virtuálky s portem do prohlížeče šlo aplikaci standardně využívat. 
+## Project Overview
+
+This repository serves as a training project focused on mastering essential **DevOps practices**. The goal was to automate the **build**, **test**, **containerization**, and **deployment** of a simple Java application using modern tools such as **GitLab CI/CD**, **Docker**, **Ansible**, and **OpenStack**.
+
+---
+
+## Workflow Summary
+
+### 1. Java Application & Dockerization
+
+- The project contains a **Java application**, built using **Maven**.
+- A `Dockerfile` was created to build a **Docker image** of the application.
+- This image serves as the deployment unit for production and testing.
+
+### 2. GitLab CI/CD Pipeline
+
+- The `.gitlab-ci.yml` file defines a pipeline that:
+  - Builds the project using Maven.
+  - Identifies and stores build artifacts (binaries).
+  - Constructs a Docker image from the application.
+  - Pushes the final image to the **GitLab Container Registry**.
+
+### 3. OpenStack & Ansible Automation
+
+- The project was deployed in a **school-managed cloud environment** running on **OpenStack**.
+- A **controller virtual machine (VM)** was set up, along with two **managed target VMs**.
+- The controller VM included a configuration file listing the IP addresses of the target VMs.
+- An **Ansible Playbook** was written to automate deployment on the target VMs.
+  - This included installing Docker, logging into the GitLab Container Registry, pulling the application image, and running it as a container.
+  - SSH keys were exchanged to allow seamless Ansible access from the controller to the managed hosts.
+
+### 4. Result
+
+Once the playbook was executed with the command:
+
+```bash
+ansible-playbook -i hosts webserver.yml
