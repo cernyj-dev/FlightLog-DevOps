@@ -42,6 +42,9 @@ Once the playbook was executed with the command:
 ```bash
 ansible-playbook -i hosts webserver.yml
 ```
+the Docker containers were successfully launched on the target VMs. By accessing the IP address and port of the container-hosting VM, the Java web application could be used in a standard browser.
+
+---
 
 ### Key Technologies Used 
 - Java + Maven – application build and dependency management
@@ -51,7 +54,9 @@ ansible-playbook -i hosts webserver.yml
 - Ansible – configuration management and remote automation
 - OpenStack – cloud infrastructure for VM provisioning
 
-###Repository Contents
+---
+
+### Repository Contents
 - Dockerfile – defines the containerized environment
 - .gitlab-ci.yml – CI/CD pipeline definition
 - webserver.yml – Ansible Playbook for deployment
