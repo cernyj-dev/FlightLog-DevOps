@@ -41,3 +41,19 @@ Once the playbook was executed with the command:
 
 ```bash
 ansible-playbook -i hosts webserver.yml
+```
+
+### Key Technologies Used 
+- Java + Maven – application build and dependency management
+- Docker – containerization of the application
+- GitLab CI/CD – automation of the build and deployment process
+- GitLab Container Registry – storage for built Docker images
+- Ansible – configuration management and remote automation
+- OpenStack – cloud infrastructure for VM provisioning
+
+###Repository Contents
+- Dockerfile – defines the containerized environment
+- .gitlab-ci.yml – CI/CD pipeline definition
+- webserver.yml – Ansible Playbook for deployment
+- hosts – Ansible inventory file (example)
+- Java source code of the deployed application
